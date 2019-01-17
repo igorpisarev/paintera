@@ -1,7 +1,11 @@
 package org.janelia.saalfeldlab.paintera.control.paint;
 
+import bdv.fx.viewer.OverlayPane;
 import bdv.fx.viewer.ViewerPanelFX;
 import bdv.fx.viewer.ViewerState;
+import bdv.fx.viewer.render.RenderUnit;
+import bdv.fx.viewer.render.RenderingModeController;
+import bdv.fx.viewer.render.RenderingModeController.RenderingMode;
 import bdv.util.Affine3DHelpers;
 import bdv.viewer.Source;
 import javafx.event.EventHandler;
@@ -87,6 +91,8 @@ public class PaintClickOrDrag implements InstallAndRemove<Node> {
 
 	private final ViewerPanelFX viewer;
 
+	private final RenderingModeController renderingModeController;
+
 	private final Supplier<Long> paintId;
 
 	private final DoubleSupplier brushRadius;
@@ -133,6 +139,7 @@ public class PaintClickOrDrag implements InstallAndRemove<Node> {
 		this.brushDepth = brushDepth;
 		this.check = check;
 
+		this.renderingModeController = new RenderingModeController(viewer.getRenderer(), RenderingMode.SINGLE_TILE);
 
 		this.onPress = event -> {
 
@@ -172,6 +179,7 @@ public class PaintClickOrDrag implements InstallAndRemove<Node> {
 					this.interval = null;
 					this.paintIntoThis = source;
 					position.update(event);
+					renderingModeController.setMode(RenderingMode.MULTI_TILE);
 					paint(position.x, position.y);
 				}
 				// TODO should this be more specific? I think that we should never enter a painting state
@@ -338,10 +346,10 @@ public class PaintClickOrDrag implements InstallAndRemove<Node> {
 	}
 
 	private void release() {
+		renderingModeController.setMode(RenderingMode.SINGLE_TILE);
 		this.mask = null;
 		this.isPainting = false;
 		this.interval = null;
 		this.paintIntoThis = null;
 	}
-
 }

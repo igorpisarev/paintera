@@ -554,6 +554,15 @@ public class ViewerPanelFX
 
 	/**
 	 *
+	 * @return {@link RenderUnit} used for rendering 2D cross-sections
+	 */
+	public RenderUnit getRenderer()
+	{
+		return this.renderUnit;
+	}
+
+	/**
+	 *
 	 * @return The current grid of image tiles that the screen is split into.
 	 */
 	public ObjectProperty<RenderUnit.ImagePropertyGrid> imageDisplayGridProperty()
