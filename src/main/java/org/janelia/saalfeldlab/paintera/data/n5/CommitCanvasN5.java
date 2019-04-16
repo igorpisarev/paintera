@@ -37,6 +37,7 @@ import org.janelia.saalfeldlab.n5.DatasetAttributes;
 import org.janelia.saalfeldlab.n5.LongArrayDataBlock;
 import org.janelia.saalfeldlab.n5.N5Reader;
 import org.janelia.saalfeldlab.n5.N5Writer;
+import org.janelia.saalfeldlab.n5.imglib2.N5LabelMultisets;
 import org.janelia.saalfeldlab.n5.imglib2.N5Utils;
 import org.janelia.saalfeldlab.paintera.data.mask.persist.PersistCanvas;
 import org.janelia.saalfeldlab.paintera.data.mask.persist.UnableToPersistCanvas;
@@ -613,7 +614,7 @@ public class CommitCanvasN5 implements PersistCanvas
 			final DatasetSpec datasetSpec,
 			final BlockSpec blockSpec,
 			TLongObjectHashMap<BlockDiff> blockDiff) throws IOException {
-		final RandomAccessibleInterval<LabelMultisetType> highestResolutionData = LabelUtils.openVolatile(datasetSpec.container, datasetSpec.dataset);
+		final RandomAccessibleInterval<LabelMultisetType> highestResolutionData = N5LabelMultisets.openLabelMultiset(datasetSpec.container, datasetSpec.dataset);
 		for (final long blockId : blocks) {
 			blockSpec.fromLinearIndex(blockId);
 			final IntervalView<Pair<LabelMultisetType, UnsignedLongType>> backgroundWithCanvas = Views.interval(Views.pair(highestResolutionData, canvas), blockSpec.asInterval());
@@ -656,7 +657,7 @@ public class CommitCanvasN5 implements PersistCanvas
 			final TLongObjectHashMap<BlockDiff> blockDiffsAt
 			) throws IOException {
 
-		final CachedCellImg<LabelMultisetType, VolatileLabelMultisetArray> previousData = LabelUtils.openVolatile(n5, previousDataset.dataset);
+		final RandomAccessibleInterval<LabelMultisetType> previousData = N5LabelMultisets.openLabelMultiset(n5, previousDataset.dataset);
 
 		for (final long targetBlock : affectedBlocks)
 		{

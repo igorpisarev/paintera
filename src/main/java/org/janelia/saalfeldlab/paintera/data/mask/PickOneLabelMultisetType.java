@@ -27,7 +27,7 @@ public class PickOneLabelMultisetType<M extends IntegerType<M>>
 		super();
 		this.pickThird = pickThird;
 		this.pickSecond = pickSecond;
-		this.scalarValue = FromIntegerTypeConverter.geAppropriateType();
+		this.scalarValue = FromIntegerTypeConverter.getAppropriateType();
 		this.converter = new FromIntegerTypeConverter<>();
 	}
 

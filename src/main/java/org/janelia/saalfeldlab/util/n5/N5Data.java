@@ -19,7 +19,6 @@ import net.imglib2.type.NativeType;
 import net.imglib2.type.label.Label;
 import net.imglib2.type.label.LabelMultiset;
 import net.imglib2.type.label.LabelMultisetType;
-import net.imglib2.type.label.N5CacheLoader;
 import net.imglib2.type.label.VolatileLabelMultisetArray;
 import net.imglib2.type.label.VolatileLabelMultisetType;
 import net.imglib2.type.numeric.RealType;
@@ -31,6 +30,7 @@ import org.janelia.saalfeldlab.n5.GzipCompression;
 import org.janelia.saalfeldlab.n5.N5FSWriter;
 import org.janelia.saalfeldlab.n5.N5Reader;
 import org.janelia.saalfeldlab.n5.imglib2.N5CellLoader;
+import org.janelia.saalfeldlab.n5.imglib2.N5LabelMultisetCacheLoader;
 import org.janelia.saalfeldlab.paintera.cache.Invalidate;
 import org.janelia.saalfeldlab.paintera.cache.global.GlobalCache;
 import org.janelia.saalfeldlab.paintera.cache.global.InvalidAccessException;
@@ -481,10 +481,10 @@ public class N5Data {
 	{
 		try {
 			final DatasetAttributes attrs = reader.getDatasetAttributes(dataset);
-			final N5CacheLoader loader = new N5CacheLoader(
+			final N5LabelMultisetCacheLoader loader = new N5LabelMultisetCacheLoader(
 					reader,
 					dataset,
-					N5CacheLoader.constantNullReplacement(Label.BACKGROUND)
+					N5LabelMultisetCacheLoader.constantNullReplacement(Label.BACKGROUND)
 			);
 			final Pair<CachedCellImg<LabelMultisetType, VolatileLabelMultisetArray>, Invalidate<Long>> cachedImg = globalCache.createImg(
 					new CellGrid(attrs.getDimensions(), attrs.getBlockSize()),

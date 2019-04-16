@@ -38,7 +38,7 @@ public class BackgroundCanvasIterable implements Iterable<LabelMultisetType> {
 
 			final Converter<UnsignedLongType, LabelMultisetType> conv = new FromIntegerTypeConverter<>();
 
-			final LabelMultisetType type = FromIntegerTypeConverter.geAppropriateType();
+			final LabelMultisetType type = FromIntegerTypeConverter.getAppropriateType();
 
 			@Override
 			public boolean hasNext() {

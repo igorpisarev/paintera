@@ -204,12 +204,12 @@ public class Masks
 			}
 		}
 
-		final LabelMultisetType defaultValue = FromIntegerTypeConverter.geAppropriateType();
+		final LabelMultisetType defaultValue = FromIntegerTypeConverter.getAppropriateType();
 		new FromIntegerTypeConverter<UnsignedLongType>().convert(new UnsignedLongType(Label.INVALID), defaultValue);
 
-		final LabelMultisetType type = FromIntegerTypeConverter.geAppropriateType();
+		final LabelMultisetType type = FromIntegerTypeConverter.getAppropriateType();
 		new FromIntegerTypeConverter<UnsignedLongType>().convert(new UnsignedLongType(Label.OUTSIDE), defaultValue);
-		final VolatileLabelMultisetType vtype = FromIntegerTypeConverter.geAppropriateVolatileType();
+		final VolatileLabelMultisetType vtype = FromIntegerTypeConverter.getAppropriateVolatileType();
 		new FromIntegerTypeConverter<UnsignedLongType>().convert(new UnsignedLongType(Label.OUTSIDE), defaultValue);
 		vtype.setValid(true);
 

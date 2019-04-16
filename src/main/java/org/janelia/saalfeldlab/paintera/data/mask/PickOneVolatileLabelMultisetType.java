@@ -29,7 +29,7 @@ public class PickOneVolatileLabelMultisetType<M extends IntegerType<M>, VM exten
 		super();
 		this.pickThird = pickThird;
 		this.pickSecond = pickSecond;
-		this.scalarValue = FromIntegerTypeConverter.geAppropriateVolatileType();
+		this.scalarValue = FromIntegerTypeConverter.getAppropriateVolatileType();
 		this.converter = new FromIntegerTypeConverter<>();
 	}
 

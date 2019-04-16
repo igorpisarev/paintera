@@ -14,7 +14,6 @@ import net.imglib2.cache.img.ReadOnlyCachedCellImgOptions;
 import net.imglib2.img.cell.CellGrid;
 import net.imglib2.type.label.Label;
 import net.imglib2.type.label.LabelMultisetType;
-import net.imglib2.type.label.LabelUtils;
 import net.imglib2.type.numeric.integer.UnsignedLongType;
 import net.imglib2.util.IntervalIndexer;
 import net.imglib2.util.Intervals;
@@ -29,6 +28,7 @@ import org.janelia.saalfeldlab.n5.LongArrayDataBlock;
 import org.janelia.saalfeldlab.n5.N5FSWriter;
 import org.janelia.saalfeldlab.n5.N5Reader;
 import org.janelia.saalfeldlab.n5.N5Writer;
+import org.janelia.saalfeldlab.n5.imglib2.N5LabelMultisets;
 import org.janelia.saalfeldlab.n5.imglib2.N5Utils;
 import org.janelia.saalfeldlab.paintera.data.mask.persist.PersistCanvas;
 import org.janelia.saalfeldlab.paintera.data.mask.persist.UnableToPersistCanvas;
@@ -134,7 +134,7 @@ public class CommitCanvasN5Test {
 				dataset,
 				DataType.UINT8,
 				canvas,
-				ThrowingBiFunction.unchecked(LabelUtils::openVolatile),
+				ThrowingBiFunction.unchecked(N5LabelMultisets::openLabelMultiset),
 				CommitCanvasN5Test::assertMultisetType,
 				MULTISET_ATTRIBUTE);
 	}
@@ -161,7 +161,7 @@ public class CommitCanvasN5Test {
 				dataset,
 				DataType.UINT8,
 				canvas,
-				ThrowingBiFunction.unchecked(LabelUtils::openVolatile),
+				ThrowingBiFunction.unchecked(N5LabelMultisets::openLabelMultiset),
 				CommitCanvasN5Test::assertMultisetType,
 				MULTISET_ATTRIBUTE);
 	}
@@ -191,7 +191,7 @@ public class CommitCanvasN5Test {
 				dataset,
 				DataType.UINT8,
 				canvas,
-				ThrowingBiFunction.unchecked(LabelUtils::openVolatile),
+				ThrowingBiFunction.unchecked(N5LabelMultisets::openLabelMultiset),
 				CommitCanvasN5Test::assertMultisetType,
 				MULTISET_ATTRIBUTE,
 				scales);

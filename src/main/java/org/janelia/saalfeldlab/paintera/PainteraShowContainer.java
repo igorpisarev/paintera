@@ -31,7 +31,6 @@ import net.imglib2.converter.ARGBColorConverter;
 import net.imglib2.converter.ARGBCompositeColorConverter;
 import net.imglib2.realtransform.AffineTransform3D;
 import net.imglib2.type.NativeType;
-import net.imglib2.type.label.LabelUtils;
 import net.imglib2.type.numeric.IntegerType;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.volatiles.AbstractVolatileRealType;
@@ -47,6 +46,7 @@ import org.janelia.saalfeldlab.n5.DataType;
 import org.janelia.saalfeldlab.n5.DatasetAttributes;
 import org.janelia.saalfeldlab.n5.N5Reader;
 import org.janelia.saalfeldlab.n5.N5Writer;
+import org.janelia.saalfeldlab.n5.imglib2.N5LabelMultisets;
 import org.janelia.saalfeldlab.n5.imglib2.N5Utils;
 import org.janelia.saalfeldlab.paintera.composition.ARGBCompositeAlphaAdd;
 import org.janelia.saalfeldlab.paintera.composition.ARGBCompositeAlphaYCbCr;
@@ -728,7 +728,7 @@ public class PainteraShowContainer extends Application {
 					? N5Helpers.getFinestLevelJoinWithGroup(reader, group)
 					: group;
 		final boolean isLabelMultiset = N5Helpers.getBooleanAttribute(reader, dataset, N5Helpers.IS_LABEL_MULTISET_KEY, false);
-		final CachedCellImg<I, ?> img = isLabelMultiset ? (CachedCellImg<I, ?>) (CachedCellImg) LabelUtils.openVolatile(reader, dataset) : (CachedCellImg<I, ?>) N5Utils.open(reader, dataset);
+		final CachedCellImg<I, ?> img = isLabelMultiset ? (CachedCellImg<I, ?>) N5LabelMultisets.openLabelMultiset(reader, dataset) : (CachedCellImg<I, ?>) N5Utils.open(reader, dataset);
 		final int[] blockSize = new  int[img.numDimensions()];
 		img.getCellGrid().cellDimensions(blockSize);
 		final List<Interval> blocks = Grids.collectAllContainedIntervals(img.getCellGrid().getImgDimensions(), blockSize);
